@@ -1,0 +1,49 @@
+
+entity Dashboard {
+	catList Category required
+}
+
+entity Category{
+	categoryName String
+	subCatList SubCategory
+}
+
+entity SubCategory {
+	subCategoryName String
+	asset Asset
+
+}
+
+entity Asset{
+	assetName String
+	assetDescription String
+	assetURL String
+	keyFeatures String
+	usageSteps String
+	additionalLink String
+	owner String
+	date String
+    feedback Feedback
+    
+}
+
+entity Feedback{
+	name String
+	email String
+	assetUsage String
+	feedbackInWords String
+	rating Integer
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Dashboard to Category{asset},
+	Category to	SubCategory{category},
+    SubCategory to Asset{subCategory},
+    Asset to Feedback{asset}
+}
+
+// Set pagination options
+paginate SubCategory with infinite-scroll
+paginate Asset with pagination
+
